@@ -1,0 +1,24 @@
+{% extends 'modelo.html' %}
+{% block conteudo %}
+{% if not vagas %}
+    <h1 class="display-5 text-center" style="color: #000;">Estamos preparando novas oportunidades para você...</h1>
+    <h2 class="display-4 text-center">Retorne em breve.</h2>
+    {% else %}
+    <div class="container">
+        <div class="row g-3">
+            {% for vaga in vagas %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" style="margin-left: 7%;">
+                <div class="card text-center bg-light" style="height: 380px;">
+                    <img src="../static/img/produtos/{{ vaga['img_vaga'] }}" class="card-img-top" style="min-height: 200px;"/>
+                    <div class="card-header fs-3 text-danger">R$ {{ vaga['salario_vaga'] }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ vaga['cargo_vaga'] }}</h5>
+                        <p class="card-text truncar-31">{{ vaga['requi_vaga'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

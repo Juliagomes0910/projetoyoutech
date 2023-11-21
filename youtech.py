@@ -7,8 +7,8 @@ app= Flask(__name__)
 app.secret_key = "youtechzinho"
 
 #Reformulando a questão do usuário para envolver o RH 
-usuarioRH = "voceTec"
-senha = "345senhaForte@"
+usuario = "adm"
+senha = "123"
 login = False
 
 #Função para sessão RH 
@@ -51,12 +51,12 @@ def login():
 #Rota da página acesso 
 @app.route("/acesso", methods=['post'])
 def acesso():
-    global usuarioRH, senha
-    usuario_informado = request.form["usuarioRH"]
+    global usuario, senha
+    usuario_informado = request.form["usuario"]
     senha_informada = request.form["senha"]
-    if usuarioRH == usuario_informado and senha==senha_informada:
+    if usuario == usuario_informado and senha==senha_informada:
         session["login"] = True
-        return redirect('/admRH')
+        return redirect('/admrh')
     else:
         return render_template("login.html", msg="Usuário/Senha estão incorretos!")
     
@@ -64,9 +64,8 @@ def acesso():
 @app.route("/admrh")
 def adm():
     if verifica_sessao():
-        iniciar_db()
         conexao = conecta_database()
-        vagas = conexao.execute(' SELECT * FROM vagas ORDER BY id_vaga DESC').fetchall()
+        vagas = conexao.execute('SELECT * FROM vagas ORDER BY id_vaga DESC').fetchall()
         conexao.close()
         title = "Administração RH"
         return render_template("admrh.html" , vagas=vagas, title=title)
@@ -104,7 +103,7 @@ def cadastro():
         filename=id_foto+cargo_vaga+'.png'
         img_vaga.save("static/img/vagas/"+filename)
         conexao = conecta_database()
-        conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga,salario_vaga, img_vaga, email_vaga ) VALUES (?, ?, ?, ?)',(cargo_vaga, requi_vaga, salario_vaga,local_vaga, email_vaga, filename))
+        conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, img_vaga) VALUES (?, ?, ?, ?, ?, ?)', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, filename))
         conexao.commit()
         conexao.close()
         return redirect("/admrh")
@@ -112,29 +111,35 @@ def cadastro():
         return redirect("/login")
     
 #Rota de exclusão
-@app.route("/excluir/<id>")
+@app.route("/excluir/<id_vaga>")
 def excluir(id_vaga):
     if verifica_sessao():
-        id_vaga=int(id_vaga)
-        conexao=conecta_database()
-        vaga = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ?',(id_vaga,)).fetchall()
-        filename_old = vaga[0]['img_vaga']
-        excluir_arquivo = "static/img/vagas/"+filename_old
-        os.remove(excluir_arquivo)
-        conexao.execute('DELETE FROM vagas WHERE id_vaga = ?',(id_vaga,)) 
-        conexao.commit()
-        conexao.close()
-        return redirect('/admrh')
+        id_vaga = int(id_vaga)
+        conexao = conecta_database()
+        vaga = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ?', (id_vaga,)).fetchall()
+        
+        if vaga:
+            filename_old = vaga[0]['img_vaga']
+            excluir_arquivo = "static/img/vagas/" + filename_old
+            os.remove(excluir_arquivo)
+            
+            conexao.execute('DELETE FROM vagas WHERE id_vaga = ?', (id_vaga,))
+            conexao.commit()
+            conexao.close()
+            return redirect('/admrh')
+        else:
+            return "Vaga não encontrada."
     else:
-        return redirect('/login') 
+        return redirect('/login')
+
       
 #Criar rota de edição
 @app.route("/editvagas/<id_vaga>")
 def editar(id_vaga):
     if verifica_sessao():
-        iniciar_db()
+        id_vaga = int(id_vaga)
         conexao = conecta_database()
-        vagas = conexao.execute('SELECT FROM vagas WHERE id_vaga = ?'(id_vaga,)).fetchall()
+        vagas = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ?',(id_vaga,)).fetchall()
         conexao.close()
         title = "Edição de Vagas"
         return render_template("editvagas.html",vagas=vagas,title=title)
@@ -152,16 +157,16 @@ def editvaga():
     local_vaga= request.form['local_vaga']
     conexao = conecta_database()
     if img_vaga:
-        vaga = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ? ', (id_vaga)).fetchall()
+        vaga = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ? ', (id_vaga,)).fetchall()
         filename = vaga[0]['img_vaga']
         img_vaga.save("static/img/vagas"+filename)
-        id_foto = str(uuid.uuid4().hex)
+        id_foto =str(uuid.uuid4().hex)
         filename= id_foto+ cargo_vaga+'.png'
         img_vaga.save("static/img/vagas/"+filename)
-        conexao.execute('UPDATE vagas SET nome_vaga = ?, desc_vaga = ?, img_vaga = ? WHERE id_vaga = ?',(cargo_vaga, requi_vaga, filename, id_vaga, salario_vaga, local_vaga))
+        conexao.execute('UPDATE vagas SET cargo_vaga = ?, requi_vaga = ?, img_vaga = ? WHERE id_vaga = ?',(cargo_vaga, requi_vaga, filename, id_vaga, salario_vaga, local_vaga))
     else:
         conexao = conecta_database()
-        conexao.execute('UPDATE vagas SET nome_vaga = ?, desc_vaga = ? , salario_vaga = ? WHERE id_vaga= ?',(cargo_vaga, requi_vaga,id_vaga, salario_vaga))
+        conexao.execute('UPDATE vagas SET cargo_vaga = ?, requi_vaga = ? , salario_vaga = ? WHERE id_vaga= ?',(cargo_vaga, requi_vaga,id_vaga, salario_vaga))
     conexao.commit()
     conexao.close()
     return redirect('/admrh')
