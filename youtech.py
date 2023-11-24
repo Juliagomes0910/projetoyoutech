@@ -98,12 +98,14 @@ def cadastro():
         img_vaga=request.files['img_vaga']
         salario_vaga= request.form['salario_vaga']
         local_vaga= request.form['local_vaga']
+        email_vaga = request.form['email_vaga']
+        tipo_vaga = request.form['tipo_vaga']
         id_foto=str(uuid.uuid4().hex)
         filename=id_foto+cargo_vaga+'.png'
         img_vaga.save("static/img/vagas/"+filename)
         conexao = conecta_database()
-        conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga, salario_vaga, local_vaga, img_vaga) VALUES (?, ?, ?, ?, ?)', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, filename))
-        conexao.commit()
+        conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, tipo_vaga, img_vaga) VALUES (?, ?, ?, ?, ?, ?, ?)', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, tipo_vaga, filename))
+
         conexao.close()
         return redirect("/admrh")
     else:
@@ -158,14 +160,8 @@ def editvaga():
     if img_vaga:
         vaga = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ? ', (id_vaga,)).fetchall()
         filename = vaga[0]['img_vaga']
-        img_vaga.save("static/img/vagas"+filename)
-        id_foto =str(uuid.uuid4().hex)
-        filename= id_foto+ cargo_vaga+'.png'
         img_vaga.save("static/img/vagas/"+filename)
-        conexao.execute('UPDATE vagas SET cargo_vaga = ?, requi_vaga = ?, img_vaga = ? WHERE id_vaga = ?',(cargo_vaga, requi_vaga, filename, id_vaga, salario_vaga, local_vaga))
-    else:
-        conexao = conecta_database()
-        conexao.execute('UPDATE vagas SET cargo_vaga = ?, requi_vaga = ? , salario_vaga = ? WHERE id_vaga= ?',(cargo_vaga, requi_vaga,id_vaga, salario_vaga))
+    conexao.execute('UPDATE vagas SET cargo_vaga = ?, requi_vaga = ?, salario_vaga = ?, local_vaga = ?  WHERE id_vaga = ?', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, id_vaga))
     conexao.commit()
     conexao.close()
     return redirect('/admrh')
@@ -175,9 +171,20 @@ def editvaga():
 def busca():
     busca = request.form['buscar']
     conexao = conecta_database()
-    vagas = conexao.execute('SELECT * FROM vagas WHERE name_vaga LIKE "%" || ? || "%"',(busca,)).fetchall()
+    vagas = conexao.execute('SELECT * FROM vagas WHERE cargo_vaga LIKE "%" || ? || "%"',(busca,)).fetchall()
     title= "Home"
     return render_template("home.html", vagas=vagas, title=title)
+
+#Rota para página individual das vagas 
+@app.route("/vagaindi/<id_vaga>",methods=['GET'])
+def vaga_especifica(id_vaga):
+    id_vaga = int(id_vaga)
+    conexao = conecta_database()
+    vagas = conexao.execute('SELECT * FROM vagas WHERE id_vaga = ?',(id_vaga,)).fetchall()
+    conexao.close()
+    title = "Vaga Especificada"
+    return render_template("vagaindi.html",vagas=vagas,title=title)
+
 
 #Final do código - Executando o servidor
 app.run(debug=True)

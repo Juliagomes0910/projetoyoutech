@@ -4,7 +4,7 @@
 {% if not vagas %}
     <h1 class="" text-danger my-5 style="text-align: center; margin-bottom: 5%;">Não há vagas no momento...</h1>
 
-<!-- Caso hava produtos, será rodado o seguinte código -->
+<!-- Caso haja produtos, será rodado o seguinte código -->
 {% else %}
     <div class="container">
         <ul class="list-group mb-3 d-flex flex-row">
@@ -18,8 +18,7 @@
                         </div>
                         <div class="col-5">
                             <h4 class="text" style= "color: #2A494D;">{{ vaga['cargo_vaga'] }}</h4>
-                            <h5 class="text-black">{{ vaga['requi_vaga'] }}</h5>
-                            <p class="text-black fs-3">R$ {{ vaga['salario_vaga '] }}</p>
+                            <p class="text-black fs-3">R$ {{ vaga['salario_vaga'] }}</p>
                         </div>
                         <div class="col">
                             <a href="/editvagas/{{vaga['id_vaga'] }}"><i class="bi bi-pencil-square fs-3"></i></a>
