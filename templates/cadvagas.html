@@ -1,74 +1,74 @@
 {% extends 'modelo.html' %}
 {% block conteudo %}
 
-    <div class="container">
-        <div class="row justify-content-center text-center">
-            <h1 class="mb-3 display-4">Cadastro de Vagas</h1>
-            <form action="/cadastro" method="post" enctype="multipart/form-data" class="col-sm-10 col-md-8 col-lg-6 text-center needs-validation" novalidate>
-                <div class="form-floating mb-2">
-                    <input type="text" name="cargo_vaga" id="cargo_vaga" class="form-control" required placeholder="" autofocus />
-                    <label for="cargo_vaga"> Cargo:</label>
-                    <div class="invalid-feedback">
-                        Você deve informar o cargo 
-                    </div>
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <h1 class="mb-3 display-4">Cadastro de Vagas</h1>
+        <form action="/cadastro" method="post" enctype="multipart/form-data" class="col-sm-10 col-md-8 col-lg-6 text-center needs-validation" novalidate>
+            <div class="form-floating mb-2">
+                <input type="text" name="cargo_vaga" id="cargo_vaga" class="form-control" required placeholder="" autofocus />
+                <label for="cargo_vaga"> Cargo:</label>
+                <div class="invalid-feedback">
+                    Você deve informar o cargo 
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="text" name="local_vaga" id="local_vaga" class="form-control" required placeholder="" autofocus />
-                    <label for="local_vaga"> Local:</label>
-                    <div class="invalid-feedback">
-                        Você deve informar o local do cargo 
-                    </div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" name="local_vaga" id="local_vaga" class="form-control" required placeholder="" autofocus />
+                <label for="local_vaga"> Local:</label>
+                <div class="invalid-feedback">
+                    Você deve informar o local do cargo 
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="text" name="email_vaga" id="email_vaga" class="form-control" required placeholder="" autofocus />
-                    <label for="email_vaga"> Email:</label>
-                    <div class="invalid-feedback">
-                        Você deve informar o email 
-                    </div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" name="email_vaga" id="email_vaga" class="form-control" required placeholder="" autofocus />
+                <label for="email_vaga"> Email:</label>
+                <div class="invalid-feedback">
+                    Você deve informar o email 
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="text" name="tipo_vaga" id="tipo_vaga" class="form-control" required placeholder="" autofocus />
-                    <label for="tipo_vaga"> Tipo:</label>
-                    <div class="invalid-feedback">
-                        Você deve informar o tipo do cargo 
-                    </div>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" name="tipo_vaga" id="tipo_vaga" class="form-control" required placeholder="" autofocus />
+                <label for="tipo_vaga"> Tipo:</label>
+                <div class="invalid-feedback">
+                    Você deve informar o tipo do cargo 
                 </div>
-                <div class="form-floating mb-2">
-                    <textarea name="requi_vaga" class="form-control" required placeholder="" style="height: 100px"></textarea>
-                    <label for="requi_vaga">Requisitos da vaga:</label>
-                    <div class="invalid-feedback">
-                        Você deve informar os requisitos 
-                    </div>
+            </div>
+            <div class="form-floating mb-2">
+                <textarea name="requi_vaga" class="form-control" required placeholder="" style="height: 100px"></textarea>
+                <label for="requi_vaga">Requisitos da vaga:</label>
+                <div class="invalid-feedback">
+                    Você deve informar os requisitos 
                 </div>
-                <div class="row">
-                    <div class="col-12 col-md-5">
-                        <div class="input-group mb-2">
-                            <span class="input-group-text">R$</span>
-                            <div class="form-floating">
-                                <input type="text" name="salario_vaga" id="salario_vaga" class="form-control" required placeholder="" />
-                                <label for="salario_vaga">Salário: </label>
-                                <div class="invalid-feedback">
-                                    Você deve informar o salário correspondente 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-7">
-                        <div class="input-group m2-3">
-                            <span class="input-group-text"><i class="bi bi-file-image"></i></span>
-                            <div class="form-floating">
-                                <input type="file" name="img_vaga" id="img_vaga" accept="image/jpeg,image/png" required class="form-control" />
-                                <div class="invalid-feedback">
-                                    Você deve inviar a foto da vaga 
-                                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">R$</span>
+                        <div class="form-floating">
+                            <input type="text" name="salario_vaga" id="salario_vaga" class="form-control" required placeholder="" />
+                            <label for="salario_vaga">Salário: </label>
+                            <div class="invalid-feedback">
+                                Você deve informar o salário correspondente 
                             </div>
                         </div>
                     </div>
                 </div>
-                <input type="submit" class="mt-3 btn btn-lg btn-outline justify-content-center " style="background-color: #00F5FF; color: #000;" value="Cadastrar" />
-            </form>
-        </div>
+                <div class="col-12 col-md-7">
+                    <div class="input-group m2-3">
+                        <span class="input-group-text"><i class="bi bi-file-image"></i></span>
+                        <div class="form-floating">
+                            <input type="file" name="img_vaga" id="img_vaga" accept="image/jpeg,image/png" required class="form-control" />
+                            <div class="invalid-feedback">
+                                Você deve inviar a foto da vaga 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="mt-3 btn btn-lg btn-outline justify-content-center " style="background-color: #00F5FF; color: #000;" value="Cadastrar" />
+        </form>
     </div>
+</div>
 <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
