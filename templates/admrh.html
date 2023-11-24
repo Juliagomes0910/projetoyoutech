@@ -1,40 +1,40 @@
 {% extends 'modelo.html' %}
 {% block conteudo %}
 <!-- Bloco condicional que será rodado apenas quando não houver produtos cadastrados -->
-    {% if not vagas %}
-        <h1 class=""text-center text-danger my-5>Não há vagas no momento</h1>
+{% if not vagas %}
+    <h1 class="" text-danger my-5 style="text-align: center; margin-bottom: 5%;">Não há vagas no momento...</h1>
 
-    <!-- Caso hava produtos, será rodado o seguinte código -->
-    {% else %}
-        <div class="container text-center">
-            <ul class="list-group mb-3 d-flex flex-row">
-                <div class="row g-3">
-                    <!-- Bloco de repetição que será executado para cada produto existente -->
-                {% for vaga in vagas %}
-                    <div class="col-12 col-md-10 col-lg-6 mx-auto">
-                        <li class="list-group-item py-1 d-flex align-items-center" style="height: 220px;">
-                            <div class="col-3 me-3 mh-100">
-                                <img src="../static/img/vagas/{{ vaga['img_vaga'] }}" class="img-thumbnail mh-100" />
-                            </div>
-                            <div class="col-5">
-                                <h4 class="text-danger">{{ vaga['cargo_vaga'] }}</h4>
-                                <h5 class="text-black">{{ vaga['requi_vaga'] }}</h5>
-                                <p class="text-danger fs-3">R$ {{ vaga['salario_vaga '] }}</p>
-                            </div>
-                            <div class="col">
-                                <a href="/editvagas/{{vaga['id_vaga'] }}"><i class="bi bi-pencil-square fs-3"></i></a>
-                                <a href="/excluir/{{ vaga['id_vaga'] }}" onclick="return confirm('Você tem certeza de que você deseja excluir essa vaga?')"><i class="bi bi-trash3 fs-3 ms-5"></i></a>
-                            </div>    
-                        </li>
-                    </div>
-                    {% endfor %}
+<!-- Caso hava produtos, será rodado o seguinte código -->
+{% else %}
+    <div class="container">
+        <ul class="list-group mb-3 d-flex flex-row">
+            <div class="row g-3">
+                <!-- Bloco de repetição que será executado para cada produto existente -->
+            {% for vaga in vagas %}
+                <div class="col-12 col-md-10 col-lg-6 mx-auto">
+                    <li class="list-group-item py-1 d-flex align-items-center" style="height: 290px;">
+                        <div class="col-3 me-3 mh-100">
+                            <img src="../static/img/vagas/{{ vaga['img_vaga'] }}" class="img-thumbnail mh-100" />
+                        </div>
+                        <div class="col-5">
+                            <h4 class="text" style= "color: #2A494D;">{{ vaga['cargo_vaga'] }}</h4>
+                            <h5 class="text-black">{{ vaga['requi_vaga'] }}</h5>
+                            <p class="text-black fs-3">R$ {{ vaga['salario_vaga '] }}</p>
+                        </div>
+                        <div class="col">
+                            <a href="/editvagas/{{vaga['id_vaga'] }}"><i class="bi bi-pencil-square fs-3"></i></a>
+                            <a href="/excluir/{{ vaga['id_vaga'] }}" onclick="return confirm('Você tem certeza de que você deseja excluir essa vaga?')"><i class="bi bi-trash3 fs-3 ms-5"></i></a>
+                        </div>    
+                    </li>
                 </div>
-            </ul>
-            {% endif %}
-            <!-- Botões com redirecionamento para a página de cadastro de produtos e logout-->
-            <div class="container text-center">
-                <button type="button" onclick="window.location.href='/cadvagas'" class="btn btn-lg btn-success mx-5">Cadastrar</button>
-                <button type="button" onclick="window.location.href='/logout'" class="btn btn-lg btn-danger mx-5">Sair</button>
+                {% endfor %}
             </div>
+        </ul>
+        {% endif %}
+        <!-- Botões com redirecionamento para a página de cadastro de produtos e logout-->
+        <div class="container text-center">
+            <button type="button" onclick="window.location.href='/cadvagas'" class="btn btn-lg btn-dark mx-5">Cadastrar</button>
+            <button type="button" onclick="window.location.href='/logout'" class="btn btn-lg mx-5" style="background-color: #00F5FF; color: #000;">Sair</button>
         </div>
-    {% endblock %}  
+    </div>
+{% endblock %}  
