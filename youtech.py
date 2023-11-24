@@ -98,12 +98,11 @@ def cadastro():
         img_vaga=request.files['img_vaga']
         salario_vaga= request.form['salario_vaga']
         local_vaga= request.form['local_vaga']
-        email_vaga = request.form['email_vaga']
         id_foto=str(uuid.uuid4().hex)
         filename=id_foto+cargo_vaga+'.png'
         img_vaga.save("static/img/vagas/"+filename)
         conexao = conecta_database()
-        conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, img_vaga) VALUES (?, ?, ?, ?, ?, ?)', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, filename))
+        conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga, salario_vaga, local_vaga, img_vaga) VALUES (?, ?, ?, ?, ?)', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, filename))
         conexao.commit()
         conexao.close()
         return redirect("/admrh")
