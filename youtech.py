@@ -193,6 +193,5 @@ def inscricao():
 
 
 
-
 #Final do código - Executando o servidor
 app.run(debug=True)

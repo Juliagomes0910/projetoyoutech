@@ -2,35 +2,51 @@
 {% block conteudo %}
 
 <h3 style="display: flex; justify-content: center; text-align: center;"> Envie seu currículo: </h3>
-<form class="row g-3 needs-validation" style="display: flex; justify-content: center;" novalidate>
-    <div class="col-md-4">
-      <label for="validationCustom01" class="form-label">Nome</label>
-      <input type="text" class="form-control" id="validationCustom01" value="Mark" style="width: 500px;"  required>
-      <div class="invalid-feedback">
-        Preencha com o seu nome
-      </div><br>
-    </div>
-    <div class="col-md-4">
-      <label for="validationCustom02" class="form-label">Sobrenome</label>
-      <input type="text" class="form-control" id="validationCustom02" value="Otto" style="width: 500px;" required>
-      <div class="invalid-feedback">
-       Preencha com o seu sobrenome
-      </div>
-    </div>
-<div class="container mt-5">
-      <div class="mb-3">
-        <label for="pdfInput" class="form-label" style="display: flex; justify-content: center; text-align: center;"  >Escolha um arquivo PDF:</label>
-        <input type="file" class="form-control" id="pdfInput" accept=".pdf" style="width: 360px; margin-left: 590px;">
-      </div>
-      <button type="button"  class="btn btn-primary" onclick="uploadPDF()" style="margin-left: 700px;">Enviar PDF</button>
+<form class="row g-3 needs-validation" novalidate style="display: flex; justify-content: center; flex-direction: column; align-items: center; " novalidate>
+
+  <div class="col-md-4">
+    <label for="validationCustom01" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="validationCustom01" value="" style="width: 500px;"  required>
+    <div class="invalid-feedback">
+      Preencha com o seu nome
+    </div><br>
   </div>
+
+  <div class="col-md-4">
+    <label for="validationCustom02" class="form-label">Sobrenome</label>
+    <input type="text" class="form-control" id="validationCustom02" value="" style="width: 500px;" required>
+    <div class="invalid-feedback">
+     Preencha com o seu sobrenome
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="formFile" class="form-label"  style="width: 360px; margin-left: 590px;">Escolha um arquivo PDF:</label>
+    <input type="file" class="form-control" id="pdfInput" accept=".pdf" style="width: 360px; margin-left: 590px;">
+  </div>
+  <input type="submit" class="mt-2 btn btn-lg btn-outline justify-content-center " onclick="uploadPDF()" style="background-color: #00F5FF; color: #000; width: 400px;" value="Enviar" />
 </form>
   
-  <!-- Adicione os scripts do Bootstrap e do jQuery (substitua os caminhos pelos seus arquivos JS) -->
-  <script src="caminho/para/jquery.js"></script>
-  <script src="caminho/para/bootstrap.bundle.js"></script>
   
   <script>
+    (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+        }, false)
+    })
+    })()
     function uploadPDF() {
       // Obter o elemento de entrada de arquivo
       var pdfInput = document.getElementById('pdfInput');
@@ -40,10 +56,8 @@
         // Obter o primeiro arquivo (o usuário pode selecionar vários, mas aqui estamos lidando com apenas um)
         var pdfFile = pdfInput.files[0];
   
-        // Realizar as operações de upload ou manipulação do arquivo PDF conforme necessário
-        // Você pode usar uma biblioteca de upload de arquivos no lado do cliente ou enviar o arquivo para o servidor via AJAX
 
-        alert('Nome do arquivo: ' + pdfFile.name + '\nTamanho do arquivo: ' + pdfFile.size + ' bytes');
+        alert('Nome do arquivo: ' + pdfFile.name );
       } else {
         // Caso nenhum arquivo tenha sido selecionado
         alert('Por favor, selecione um arquivo PDF.');
