@@ -6,15 +6,15 @@
         <form action="/vagaindi" method="post" enctype="multipart/form-data" class="col-sm-10 col-md-8 col-lg-6 text-center needs-validation" novalidate>
             {% for vaga in vagas %}
             <div class="card" style="width: 40rem;">
-                <img class="card-img-top" src="static/img/vagas/{{ vaga['img_vaga']}}" alt="Imagem de capa do card">
-                <div class="card-body">
+              <img class="card-img-top" style="height: 400px; width: 400px; margin-left: 120px;"  src="../static/img/vagas/{{ vaga['img_vaga'] }}" alt="Imagem de capa do card">
+                <div class="card-body"> 
                   <h5 class="card-title">{{ vaga['cargo_vaga'] }}</h5>
                   <p class="card-text">Requisitos: <br> {{ vaga['requi_vaga'] }}</p>
-                  <p class="card-text">Local: {{ vaga['local_vaga'] }}</p>
-                  <p class="card-text">Tipo: {{ vaga['tipo_vaga'] }}</p>
-                  <p class="card-text">Salário: {{ vaga['salario_vaga'] }}</p>
-                  <p class="card-text">Email: {{ vaga['email_vaga'] }}</p>
-                  <a href="#" class="btn btn-primary"></a>
+                  <p class="card-text">Local: <br> {{ vaga['local_vaga'] }}</p>
+                  <p class="card-text">Tipo:  <br> {{ vaga['tipo_vaga'] }}</p>
+                  <p class="card-text">Salário: <br> {{ vaga['salario_vaga'] }}</p>
+                  <p class="card-text">Email: <br>{{ vaga['email_vaga'] }}</p>
+                  <a href="/inscriyou" class="btn btn-primary">Candidatar-se</a>
                 </div>
               </div>
             {% endfor %}
@@ -22,11 +22,4 @@
         </form>
     </div>
 </div>
-
-
-
-
-
-
-
 {% endblock %}

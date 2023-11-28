@@ -1,0 +1,54 @@
+{% extends 'modelo.html' %}
+{% block conteudo %}
+
+<h3 style="display: flex; justify-content: center; text-align: center;"> Envie seu currículo: </h3>
+<form class="row g-3 needs-validation" style="display: flex; justify-content: center;" novalidate>
+    <div class="col-md-4">
+      <label for="validationCustom01" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="validationCustom01" value="Mark" style="width: 500px;"  required>
+      <div class="invalid-feedback">
+        Preencha com o seu nome
+      </div><br>
+    </div>
+    <div class="col-md-4">
+      <label for="validationCustom02" class="form-label">Sobrenome</label>
+      <input type="text" class="form-control" id="validationCustom02" value="Otto" style="width: 500px;" required>
+      <div class="invalid-feedback">
+       Preencha com o seu sobrenome
+      </div>
+    </div>
+<div class="container mt-5">
+      <div class="mb-3">
+        <label for="pdfInput" class="form-label" style="display: flex; justify-content: center; text-align: center;"  >Escolha um arquivo PDF:</label>
+        <input type="file" class="form-control" id="pdfInput" accept=".pdf" style="width: 360px; margin-left: 590px;">
+      </div>
+      <button type="button"  class="btn btn-primary" onclick="uploadPDF()" style="margin-left: 700px;">Enviar PDF</button>
+  </div>
+</form>
+  
+  <!-- Adicione os scripts do Bootstrap e do jQuery (substitua os caminhos pelos seus arquivos JS) -->
+  <script src="caminho/para/jquery.js"></script>
+  <script src="caminho/para/bootstrap.bundle.js"></script>
+  
+  <script>
+    function uploadPDF() {
+      // Obter o elemento de entrada de arquivo
+      var pdfInput = document.getElementById('pdfInput');
+  
+      // Verificar se um arquivo foi selecionado
+      if (pdfInput.files.length > 0) {
+        // Obter o primeiro arquivo (o usuário pode selecionar vários, mas aqui estamos lidando com apenas um)
+        var pdfFile = pdfInput.files[0];
+  
+        // Realizar as operações de upload ou manipulação do arquivo PDF conforme necessário
+        // Você pode usar uma biblioteca de upload de arquivos no lado do cliente ou enviar o arquivo para o servidor via AJAX
+
+        alert('Nome do arquivo: ' + pdfFile.name + '\nTamanho do arquivo: ' + pdfFile.size + ' bytes');
+      } else {
+        // Caso nenhum arquivo tenha sido selecionado
+        alert('Por favor, selecione um arquivo PDF.');
+      }
+    }
+  </script>
+  
+{% endblock %}

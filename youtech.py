@@ -105,7 +105,7 @@ def cadastro():
         img_vaga.save("static/img/vagas/"+filename)
         conexao = conecta_database()
         conexao.execute('INSERT INTO vagas (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, tipo_vaga, img_vaga) VALUES (?, ?, ?, ?, ?, ?, ?)', (cargo_vaga, requi_vaga, salario_vaga, local_vaga, email_vaga, tipo_vaga, filename))
-
+        conexao.commit()
         conexao.close()
         return redirect("/admrh")
     else:
@@ -184,6 +184,14 @@ def vaga_especifica(id_vaga):
     conexao.close()
     title = "Vaga Especificada"
     return render_template("vagaindi.html",vagas=vagas,title=title)
+
+#Rota para inscrição para empregados
+@app.route("/inscriyou")
+def inscricao():
+    title = "Currículo"
+    return render_template("inscriyou.html", title=title)
+
+
 
 
 #Final do código - Executando o servidor

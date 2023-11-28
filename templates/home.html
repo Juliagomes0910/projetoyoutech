@@ -5,10 +5,10 @@
     <h2 class="display-4 text-center">Retorne em breve.</h2>
     {% else %}
     <div class="container">
-        <div class="row g-2">
+        <div class="row g-1">
             {% for vaga in vagas %}
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" style="margin-left: 10px; width: 300px;">
-                <div class="card bg-light" style="height: 630px; text-align: start;">
+            <div class="col-9 col-sm-6 col-md-4 col-lg-3 col-xl-1" style="margin-left: 10px; width: 300px;">
+                <div class="card bg-light" style="height: 460px; text-align: start; margin-top: 30px;">
                     <div class="expandir">
                     <img src="../static/img/vagas/{{ vaga['img_vaga'] }}" class="card-img-top" style="min-height: 300px;"/>
                     <div class="card-header fs-5" style="color:#2A494D ;">{{ vaga['cargo_vaga'] }}</div>
